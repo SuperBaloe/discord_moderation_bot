@@ -24,6 +24,7 @@ A lightweight Discord moderation bot that checks account age, kicks flagged memb
 - Python 3.10 or newer
 - `discord.py`
 - `requests`
+- `pyyaml`
 - `questionary` is optional and only needed for `main_interface.py`
 
 Install the required runtime dependencies:

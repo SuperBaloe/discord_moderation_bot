@@ -1,8 +1,9 @@
-import mod
 import yaml
 import sys
 
-CONFIG_FILE = "config.yaml"
+import src.mod
+
+CONFIG_FILE = "config/config.yaml"
 
 def load_config():
     try:
@@ -21,7 +22,7 @@ def load_config():
 
 def main():
     config = load_config()
-    mod.start_bot(config)
+    src.mod.start_bot(config)
 
 if __name__ == "__main__":
     main()

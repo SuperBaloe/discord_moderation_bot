@@ -5,11 +5,11 @@ import os
 import yaml
 
 
-import mod
+import src.mod
 #############################
 # config
 #############################
-CONFIG_FILE = "config.yaml"
+CONFIG_FILE = "config/config.yaml"
 
 default_config = {
     "Bot_name": "bearish_bot",
@@ -124,7 +124,7 @@ def main():
 
         if choice == 1:
             print(f"starting {config['Bot_name']}")
-            mod.start_bot(config)
+            src.mod.start_bot(config)
 
         elif choice == 3:
             settings_menu(config)
