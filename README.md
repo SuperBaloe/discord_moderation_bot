@@ -56,6 +56,7 @@ Common config keys are:
 - `Webhook_url` - webhook URL used for status messages
 - `Check_in_time` - check interval in minutes
 - `Age_requirement` - maximum account age in days before a member is flagged
+- `Ban_member` - if true member will be banned and not kicked!
 
 `main_interface.py` creates a default `config.yaml` if it does not already exist.
 
