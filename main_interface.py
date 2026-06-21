@@ -18,6 +18,7 @@ default_config = {
     "Webhook_url": "YOUR_WEBHOOK_URL",
     "Check_in_time": 60,            # in minutes
     "Age_requirement": 15,          # how old the account has to be before being let in
+    "Ban_member": False
 }
 
 
@@ -106,7 +107,7 @@ def main_menu():
         "==== Main Menu ====",
         choices=[
             questionary.Choice("start bot", value=1),
-            questionary.Choice("test mode", value=2),
+        #   questionary.Choice("test mode", value=2),       #will come back for dry runs
             questionary.Choice("options", value=3),
             questionary.Choice("exit", value=4),
         ]

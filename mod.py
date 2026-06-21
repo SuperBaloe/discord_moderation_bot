@@ -23,6 +23,7 @@ async def on_ready():
     print("Connected")
     await run_loop(Bot_config)
 
+
 async def run_loop(config):
     while True:
         await main(config)
@@ -31,6 +32,7 @@ async def run_loop(config):
         print(f"Waiting {config['Check_in_time']} minutes...")
 
         await asyncio.sleep(wait_time)
+
 
 def start_bot(config):
     global Bot_config
@@ -92,13 +94,18 @@ async def main(config):
         if check_age(age_days, config):
             reason = f"Account younger than {config['Age_requirement']} days"
 
-            print(f"Kicking {member.name} | age: {age_days} days")
+            if config["Ban_member"]:
+                await member.ban(reason=reason)
+                action = "Banned"
+            else:
+                await member.kick(reason=reason)
+                action = "Kicked"
 
-            await member.kick(reason=reason)
+            print(f"{action} {member.name} | age: {age_days} days")
 
             send_webhook(
                 config,
-                f"Kicked **{member.name}** | Account age: {age_days} days | Reason: {reason}"
+                f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}"
             )
 
         else:
