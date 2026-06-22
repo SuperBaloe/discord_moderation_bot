@@ -11,6 +11,7 @@ intents.members = True
 client = discord.Client(intents=intents)
 Bot_config = None
 
+
 def send_webhook(config, message):
     url = config["Webhook_url"]
     data = {
@@ -18,6 +19,7 @@ def send_webhook(config, message):
     }
     requests.post(url, json=data)
     logging.debug(f"sending *{message}* to webhook {url}")
+
 
 @client.event
 async def on_ready():
@@ -72,6 +74,12 @@ def calc_age(member):
     age = now - member.created_at
     return age.days
 
+def is_whitelisted(member, config):
+    if not config["Whitelist_active"]:
+        return False
+    whitelist = config.get("Whitelist", [])
+    return member.id in whitelist
+
 
 def check_age(age_days, config):
     return age_days <= config["Age_requirement"]
@@ -91,19 +99,27 @@ async def main(config):
             continue
         age_days = calc_age(member)
 
+        if is_whitelisted(member, config):
+            logging.info(f"Skipping {member.name} because of whitelist")
+            continue
+
+
         if check_age(age_days, config):
             reason = f"Account younger than {config['Age_requirement']} days"
 
-            if config["Ban_member"]:
-                await member.ban(reason=reason)
-                action = "Banned"
-                logging.debug(f"{member} got banned")
-            else:
-                await member.kick(reason=reason)
-                action = "Kicked"
-                logging.debug(f"{member} got kicked")
+            if not config["Dry_run"]:
+                if config["Ban_member"]:
+                    await member.ban(reason=reason)
+                    action = "Banned"
+                    logging.debug(f"{member.name} got banned")
+                else:
+                    await member.kick(reason=reason)
+                    action = "Kicked"
+                    logging.debug(f"{member.name} got kicked")
 
-            logging.info(f"{action} {member.name} | age: {age_days} days")
+                logging.info(f"{action} {member.name} | age: {age_days} days")
+            else:
+                logging.info(f"Dry_run: {member.name} {reason}")
 
             send_webhook(
                 config,

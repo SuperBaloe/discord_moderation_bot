@@ -5,3 +5,7 @@ Guild_id: 123456789
 Webhook_url: "YOUR_WEBHOOK_HERE"
 Age_requirement: 15
 Ban_member: False
+Dry_run: false
+Whitelist_active: False
+Whitelist:
+- 329173372149825539

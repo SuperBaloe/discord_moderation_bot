@@ -21,7 +21,12 @@ default_config = {
     "Webhook_url": "YOUR_WEBHOOK_URL",
     "Check_in_time": 60,            # in minutes
     "Age_requirement": 15,          # how old the account has to be before being let in
-    "Ban_member": False
+    "Ban_member": False,
+    "Dry_run": False,                # Run program without kicking or banning
+    "Whitelist_active": True,
+    "Whitelist":[
+        329173372149825539
+    ]
 }
 
 
