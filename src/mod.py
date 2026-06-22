@@ -2,6 +2,7 @@ import asyncio
 from datetime import datetime, timezone
 import discord
 import requests
+import logging
 
 
 intents = discord.Intents.default()
@@ -16,27 +17,27 @@ def send_webhook(config, message):
         "content": message
     }
     requests.post(url, json=data)
-
+    logging.debug(f"sending *{message}* to webhook {url}")
 
 @client.event
 async def on_ready():
-    print("Connected")
+    logging.info("Connected")
     await run_loop(Bot_config)
 
 
 async def run_loop(config):
     while True:
         await main(config)
-
         wait_time = config["Check_in_time"] * 60
-        print(f"Waiting {config['Check_in_time']} minutes...")
-
+        logging.info(f"Waiting {config['Check_in_time']} minutes...")
         await asyncio.sleep(wait_time)
 
 
 def start_bot(config):
     global Bot_config
     Bot_config = config
+    if Bot_config is None:
+        logging.debug("Config not loaded correctly to global config in mod.py")
     client.run(config["Token"])
     
 
@@ -46,16 +47,15 @@ async def load_members(config, client):
     guild = client.get_guild(server_id)
     
     if guild is None:
-        print("Guild not found")
+        logging.info("Guild not found")
         return []
-
-    print(f"Guild ID: {server_id}")
-    print(f"Guild: {guild}")
+    
+    logging.debug(f"guild id:{server_id} | guild name:{guild}")
 
     async for member in guild.fetch_members(limit=None):
         members.append(member)
         
-    print(f"Loaded {len(members)} members")
+    logging.info(f"Loaded {len(members)} members")
     return members
 
 
@@ -78,7 +78,7 @@ def check_age(age_days, config):
         
 
 async def main(config):
-    print(f"Check started: {datetime.now()}")
+    logging.info(f"Check started: {datetime.now()}")
     members = await load_members(config, client)
 
     if not members:
@@ -97,11 +97,13 @@ async def main(config):
             if config["Ban_member"]:
                 await member.ban(reason=reason)
                 action = "Banned"
+                logging.debug(f"{member} got banned")
             else:
                 await member.kick(reason=reason)
                 action = "Kicked"
+                logging.debug(f"{member} got kicked")
 
-            print(f"{action} {member.name} | age: {age_days} days")
+            logging.info(f"{action} {member.name} | age: {age_days} days")
 
             send_webhook(
                 config,
@@ -109,4 +111,4 @@ async def main(config):
             )
 
         else:
-            print(f"OK {member.name} | age: {age_days} days")
+            logging.info(f"OK {member.name} | age: {age_days} days")

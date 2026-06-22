@@ -1,9 +1,12 @@
+import src.housey_logging
+src.housey_logging.configure()
+
 import datetime as time
 import discord
 import questionary
 import os
 import yaml
-
+import logging
 
 import src.mod
 #############################
@@ -24,6 +27,7 @@ default_config = {
 
 def create_config_if_missing():
     if not os.path.exists(CONFIG_FILE):
+        logging.info("Config file not there. Making new one")
         with open(CONFIG_FILE, "w", encoding="utf-8") as file:
             yaml.safe_dump(
                 default_config,
@@ -33,11 +37,11 @@ def create_config_if_missing():
             )
 
 def load_config():
+    logging.info("Loading config")
     try:
         with open(CONFIG_FILE, "r", encoding="utf-8") as file:
             config = yaml.safe_load(file) or {}
 
-        # Fill missing keys
         for key, value in default_config.items():
             if key not in config:
                 config[key] = value
@@ -46,11 +50,12 @@ def load_config():
         return config
 
     except (yaml.YAMLError, FileNotFoundError):
-        print("Config broken or missing → recreating")
+        logging.info("Config broken or missing → recreating")
         save_config(default_config)
         return default_config.copy()
 
 def save_config(config):
+    logging.info("Saving changes to config")
     with open(CONFIG_FILE, "w", encoding="utf-8") as file:
         yaml.safe_dump(
             config,
@@ -114,19 +119,21 @@ def main_menu():
     ).ask()
 
 def main():
+    logging.info("Moderation bot started in interface")
     create_config_if_missing()
     config = load_config()
     print(f"running discord.py version {discord.__version__}")
 
     while True:
-        #clear_screen()
+        clear_screen()
         choice = main_menu()
 
         if choice == 1:
-            print(f"starting {config['Bot_name']}")
+            logging.info("starting bot")
             src.mod.start_bot(config)
 
         elif choice == 3:
+            logging.info("loading info menu")
             settings_menu(config)
             config = load_config()
 
