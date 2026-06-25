@@ -1,4 +1,5 @@
 import src.housey_logging
+import src.update_check
 src.housey_logging.configure()
 
 import datetime as time
@@ -9,6 +10,9 @@ import yaml
 import logging
 
 import src.mod
+from version import APP_NAME, APP_VERSION
+
+
 #############################
 # config
 #############################
@@ -41,6 +45,7 @@ def create_config_if_missing():
                 default_flow_style=False
             )
 
+
 def load_config():
     logging.info("Loading config")
     try:
@@ -59,6 +64,7 @@ def load_config():
         save_config(default_config)
         return default_config.copy()
 
+
 def save_config(config):
     logging.info("Saving changes to config")
     with open(CONFIG_FILE, "w", encoding="utf-8") as file:
@@ -69,11 +75,13 @@ def save_config(config):
             default_flow_style=False
         )
 
+
 #############################
 # functions
 #############################
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 #############################
 # main
@@ -112,6 +120,7 @@ def settings_menu(config):
         config[choice] = new_value
         save_config(config)
 
+
 def main_menu():
     return questionary.select(
         "==== Main Menu ====",
@@ -123,14 +132,15 @@ def main_menu():
         ]
     ).ask()
 
+
 def main():
+    logging.info(f"starting: {APP_NAME} | version:{APP_VERSION}")
     logging.info("Moderation bot started in interface")
     create_config_if_missing()
     config = load_config()
     print(f"running discord.py version {discord.__version__}")
 
     while True:
-        clear_screen()
         choice = main_menu()
 
         if choice == 1:
@@ -146,4 +156,5 @@ def main():
             break
 
 if __name__ == "__main__":
+    src.update_check.check_for_updates()
     main()

@@ -1,4 +1,5 @@
 import src.housey_logging
+import src.update_check
 src.housey_logging.configure()
 
 import yaml
@@ -6,6 +7,8 @@ import sys
 import logging
 
 import src.mod
+
+from version import APP_NAME, APP_VERSION
 
 CONFIG_FILE = "config/config.yaml"
 
@@ -25,9 +28,11 @@ def load_config():
         sys.exit(1)
 
 def main():
+    logging.info(f"starting: {APP_NAME} | version:{APP_VERSION}")
     logging.info("Moderation bot started blind")
     config = load_config()
     src.mod.start_bot(config)
 
 if __name__ == "__main__":
+    src.update_check.check_for_updates()
     main()
