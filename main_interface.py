@@ -10,7 +10,7 @@ import yaml
 import logging
 
 import src.mod
-from version import APP_NAME, APP_VERSION
+from version import APP_NAME, APP_VERSION, BUILD_DATE
 
 
 #############################
@@ -134,7 +134,7 @@ def main_menu():
 
 
 def main():
-    logging.info(f"starting: {APP_NAME} | version:{APP_VERSION}")
+    logging.info(f"starting: {APP_NAME} | version: {APP_VERSION} | build on {BUILD_DATE}")
     logging.info("Moderation bot started in interface")
     create_config_if_missing()
     config = load_config()

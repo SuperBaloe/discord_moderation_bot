@@ -1,9 +1,9 @@
 import requests
 import logging
-from version import APP_NAME, APP_VERSION
+from version import APP_NAME, APP_VERSION, AUTHOR, GIT_REPO
 
 
-update_url = "https://api.github.com/repos/SuperBaloe/discord_moderation_bot/releases/latest"
+update_url = f"https://api.github.com/repos/{AUTHOR}/{GIT_REPO}/releases/latest"
 
 def check_for_updates():
     try:

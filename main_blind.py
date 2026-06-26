@@ -8,7 +8,7 @@ import logging
 
 import src.mod
 
-from version import APP_NAME, APP_VERSION
+from version import APP_NAME, APP_VERSION, BUILD_DATE
 
 CONFIG_FILE = "config/config.yaml"
 
@@ -28,7 +28,7 @@ def load_config():
         sys.exit(1)
 
 def main():
-    logging.info(f"starting: {APP_NAME} | version:{APP_VERSION}")
+    logging.info(f"starting: {APP_NAME} | version: {APP_VERSION} | build on {BUILD_DATE}")
     logging.info("Moderation bot started blind")
     config = load_config()
     src.mod.start_bot(config)
