@@ -1,0 +1,8 @@
+config.json
+config.yaml
+old_config.json
+src/__pycache__/mod.cpython-314.pyc
+config/discord_moderation_bot.log
+src/__pycache__/housey_logging.cpython-314.pyc
+__pycache__/version.cpython-314.pyc
+src/__pycache__/update_check.cpython-314.pyc
