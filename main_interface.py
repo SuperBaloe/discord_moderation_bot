@@ -27,6 +27,10 @@ default_config = {
     "Age_requirement": 15,          # how old the account has to be before being let in
     "Ban_member": False,
     "Dry_run": False,                # Run program without kicking or banning
+    "Send_sentence?": True,          # if sentence will be send
+    "Channel_id": 123456789,
+    "Message_time": 10,              # In seconds | how long till ban when message has been send
+    "Sentence_Kick/Ban": "Be gone you idiot",   # will be send the defined time before kick/Ban
     "Whitelist_active": True,
     "Whitelist":[
         329173372149825539

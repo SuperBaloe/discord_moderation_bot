@@ -1,5 +1,5 @@
 import asyncio
-from datetime import datetime, timezone
+from datetime import datetime, timezone, time
 import discord
 import requests
 import logging
@@ -7,6 +7,7 @@ import logging
 
 intents = discord.Intents.default()
 intents.members = True
+
 
 client = discord.Client(intents=intents)
 Bot_config = None
@@ -88,6 +89,7 @@ def check_age(age_days, config):
 async def main(config):
     logging.info(f"Check started: {datetime.now()}")
     members = await load_members(config, client)
+    channel = client.get_channel(config['Channel_id'])
 
     if not members:
         return
@@ -108,14 +110,29 @@ async def main(config):
             reason = f"Account younger than {config['Age_requirement']} days"
 
             if not config["Dry_run"]:
+
                 if config["Ban_member"]:
-                    await member.ban(reason=reason)
-                    action = "Banned"
-                    logging.debug(f"{member.name} got banned")
+                    if config['Send_sentence?']:
+                        await channel.send(f"{config['Sentence_Kick/Ban']} {member.mention}")
+                        await asyncio.sleep(10)
+                        await member.ban(reason=reason)
+                        action = "Banned"
+                        logging.debug(f"{member.name} got banned")
+                    else:
+                        await member.ban(reason=reason)
+                        action = "Banned"
+                        logging.debug(f"{member.name} got banned")
                 else:
-                    await member.kick(reason=reason)
-                    action = "Kicked"
-                    logging.debug(f"{member.name} got kicked")
+                    if config['Send_sentence?']:
+                        await channel.send(f"{config['Sentence_Kick/Ban']} {member.mention}")
+                        await asyncio.sleep(10)
+                        await member.kick(reason=reason)
+                        action = "Kicked"
+                        logging.debug(f"{member.name} got kicked")
+                    else:
+                        await member.kick(reason=reason)
+                        action = "Kicked"
+                        logging.debug(f"{member.name} got kicked")
 
                 logging.info(f"{action} {member.name} | age: {age_days} days")
             else:
