@@ -114,7 +114,7 @@ async def main(config):
                 if config["Ban_member"]:
                     if config['Send_sentence?']:
                         await channel.send(f"{config['Sentence_Kick/Ban']} {member.mention}")
-                        await asyncio.sleep(10)
+                        await asyncio.sleep(config['Message_time'])
                         await member.ban(reason=reason)
                         action = "Banned"
                         logging.debug(f"{member.name} got banned")
@@ -125,7 +125,7 @@ async def main(config):
                 else:
                     if config['Send_sentence?']:
                         await channel.send(f"{config['Sentence_Kick/Ban']} {member.mention}")
-                        await asyncio.sleep(10)
+                        await asyncio.sleep(config['Message_time'])
                         await member.kick(reason=reason)
                         action = "Kicked"
                         logging.debug(f"{member.name} got kicked")
