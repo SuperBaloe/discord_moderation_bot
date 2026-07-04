@@ -13,15 +13,6 @@ client = discord.Client(intents=intents)
 Bot_config = None
 
 
-def send_webhook(config, message):
-    url = config["Webhook_url"]
-    data = {
-        "content": message
-    }
-    requests.post(url, json=data)
-    logging.debug(f"sending *{message}* to webhook {url}")
-
-
 @client.event
 async def on_ready():
     logging.info("Connected")
@@ -90,6 +81,7 @@ async def main(config):
     logging.info(f"Check started: {datetime.now()}")
     members = await load_members(config, client)
     channel = client.get_channel(config['Channel_id'])
+    bot_channel = client.get_channel(config['Bot_alarms'])
 
     if not members:
         return
@@ -118,10 +110,12 @@ async def main(config):
                         await member.ban(reason=reason)
                         action = "Banned"
                         logging.debug(f"{member.name} got banned")
+                        await bot_channel.send(f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}")
                     else:
                         await member.ban(reason=reason)
                         action = "Banned"
                         logging.debug(f"{member.name} got banned")
+                        await bot_channel.send(f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}")
                 else:
                     if config['Send_sentence?']:
                         await channel.send(f"{config['Sentence_Kick/Ban']} {member.mention}")
@@ -129,19 +123,16 @@ async def main(config):
                         await member.kick(reason=reason)
                         action = "Kicked"
                         logging.debug(f"{member.name} got kicked")
+                        await bot_channel.send(f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}")
                     else:
                         await member.kick(reason=reason)
                         action = "Kicked"
                         logging.debug(f"{member.name} got kicked")
+                        await bot_channel.send(f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}")
 
                 logging.info(f"{action} {member.name} | age: {age_days} days")
             else:
                 logging.info(f"Dry_run: {member.name} {reason}")
 
-            send_webhook(
-                config,
-                f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}"
-            )
-
         else:
-            logging.info(f"OK {member.name} | age: {age_days} days")
+            logging.info(f"{'OK':<6} {member.name:<32} | age: {age_days:>5} days")          #Discord max username lenght is 32

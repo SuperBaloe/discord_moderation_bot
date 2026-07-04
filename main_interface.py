@@ -22,7 +22,7 @@ default_config = {
     "Bot_name": "bearish_bot",
     "Token": "YOUR_BOT_TOKEN",
     "Guild_id": 123456789,          # server id
-    "Webhook_url": "YOUR_WEBHOOK_URL",
+    "Bot_alarms:": 123456789,    # Where the bot will give info when he bans or kicks
     "Check_in_time": 60,            # in minutes
     "Age_requirement": 15,          # how old the account has to be before being let in
     "Ban_member": False,
