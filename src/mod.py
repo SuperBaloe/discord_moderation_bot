@@ -4,6 +4,7 @@ import discord
 import logging
 import random
 
+
 intents = discord.Intents.default()
 intents.members = True
 
@@ -17,9 +18,23 @@ async def on_ready():
     logging.info("Connected")
     await run_loop(Bot_config)
 
-def Random_sentence(config,message):
-    random
+
+def Random_message(config):
+
+    sentences = []
+
+    for i in range(1,11):
+        sentence = config.get(f"Sentence_{i}")
+
+        if sentence:
+            sentences.append(sentence)
+
+    if sentences:
+        message = random.choice(sentences)
+    else:
+        message = "Default kick Message"
     return message
+
 
 async def run_loop(config):
     while True:
@@ -68,6 +83,7 @@ def calc_age(member):
     age = now - member.created_at
     return age.days
 
+
 def is_whitelisted(member, config):
     if not config["Whitelist_active"]:
         return False
@@ -106,31 +122,25 @@ async def main(config):
             if not config["Dry_run"]:
 
                 if config["Ban_member"]:
+                    action = "Banned"
+                    logging.debug(f"Attempting {action} {member.name}")
                     if config['Send_sentence?']:
-                        await channel.send(f"{config['Sentence_Kick/Ban']} {member.mention}")
+                        await channel.send(f"{Random_message(config)} {member.mention}")
                         await asyncio.sleep(config['Message_time'])
                         await member.ban(reason=reason)
-                        action = "Banned"
-                        logging.debug(f"{member.name} got banned")
-                        await bot_channel.send(f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}")
                     else:
                         await member.ban(reason=reason)
-                        action = "Banned"
-                        logging.debug(f"{member.name} got banned")
-                        await bot_channel.send(f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}")
+                    await bot_channel.send(f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}")
                 else:
+                    action = "Kicked"
+                    logging.debug(f"Attempting {action} {member.name}")
                     if config['Send_sentence?']:
-                        await channel.send(f"{config['Sentence_Kick/Ban']} {member.mention}")
+                        await channel.send(f"{Random_message(config)} {member.mention}")
                         await asyncio.sleep(config['Message_time'])
                         await member.kick(reason=reason)
-                        action = "Kicked"
-                        logging.debug(f"{member.name} got kicked")
-                        await bot_channel.send(f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}")
                     else:
                         await member.kick(reason=reason)
-                        action = "Kicked"
-                        logging.debug(f"{member.name} got kicked")
-                        await bot_channel.send(f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}")
+                    await bot_channel.send(f"{action} **{member.name}** | Account age: {age_days} days | Reason: {reason}")
 
                 logging.info(f"{action} {member.name} | age: {age_days} days")
             else:
