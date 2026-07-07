@@ -11,5 +11,14 @@ Whitelist:
 - 329173372149825539
 Send_sentence?: true
 Channel_id: 123456789
+Random_Sentence: True
 Message_time: 10
-Sentence_Kick/Ban: Be gone you idiot
+Sentence_1: Be gone you idiot
+Sentence_2:
+Sentence_3:
+Sentence_4:
+Sentence_5:
+Sentence_7:
+Sentence_8:
+Sentence_9:
+Sentence_10:

@@ -1,9 +1,8 @@
 import asyncio
 from datetime import datetime, timezone, time
 import discord
-import requests
 import logging
-
+import random
 
 intents = discord.Intents.default()
 intents.members = True
@@ -18,6 +17,9 @@ async def on_ready():
     logging.info("Connected")
     await run_loop(Bot_config)
 
+def Random_sentence(config,message):
+    random
+    return message
 
 async def run_loop(config):
     while True:

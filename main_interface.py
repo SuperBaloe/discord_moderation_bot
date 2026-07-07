@@ -30,7 +30,16 @@ default_config = {
     "Send_sentence?": True,          # if sentence will be send
     "Channel_id": 123456789,
     "Message_time": 10,              # In seconds | how long till ban when message has been send
-    "Sentence_Kick/Ban": "Be gone you idiot",   # will be send the defined time before kick/Ban
+    "Random_Sentence": True,
+    "Sentence_1": "Be gone you idiot",   # will be send the defined time before kick/Ban
+    "Sentence_2": "",
+    "Sentence_3": "",
+    "Sentence_4": "",
+    "Sentence_5": "",
+    "Sentence_7": "",
+    "Sentence_8": "",
+    "Sentence_9": "",
+    "Sentence_10": "",
     "Whitelist_active": True,
     "Whitelist":[
         329173372149825539
