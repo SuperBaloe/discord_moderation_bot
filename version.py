@@ -1,5 +1,5 @@
 APP_NAME = "Discord moderation bot"
-APP_VERSION = "0.6.3"
+APP_VERSION = "0.6.4"
 BUILD_DATE = "07-07-2026"
 AUTHOR = "SuperBaloe"
 GIT_REPO = "discord_moderation_bot"

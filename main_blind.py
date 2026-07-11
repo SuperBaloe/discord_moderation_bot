@@ -5,32 +5,16 @@ src.housey_logging.configure()
 import yaml
 import sys
 import logging
-
+import src.config
 import src.mod
 
 from version import APP_NAME, APP_VERSION, BUILD_DATE
 
-CONFIG_FILE = "config/config.yaml"
-
-def load_config():
-    try:
-        with open(CONFIG_FILE, "r", encoding="utf-8") as file:
-            config = yaml.safe_load(file)
-            logging.info("Config loaded")
-        return config
-
-    except FileNotFoundError:
-        logging.debug("Config file not found")
-        sys.exit(1)
-
-    except yaml.YAMLError as e:
-        logging.debug(f"Config file is not valid YAML: {e}")
-        sys.exit(1)
-
 def main():
     logging.info(f"starting: {APP_NAME} | version: {APP_VERSION} | build on {BUILD_DATE}")
     logging.info("Moderation bot started blind")
-    config = load_config()
+    src.config.create_config_if_missing()
+    config = src.config.load_config()
     src.mod.start_bot(config)
 
 if __name__ == "__main__":

@@ -19,6 +19,10 @@ async def on_ready():
     await run_loop(Bot_config)
 
 
+def Pf_check(member):
+    return member.avatar is not None or member.guild_avatar is not None
+
+
 def Random_message(config):
 
     sentences = []
