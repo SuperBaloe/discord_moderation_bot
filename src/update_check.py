@@ -11,15 +11,17 @@ def check_for_updates():
 
         if message.status_code != 200:
             logging.info("Could not check for updates")
-            return
+            return "Could not check for updates."
 
         data = message.json()
         online_version = data["tag_name"].lstrip("v")
 
         if online_version != APP_VERSION:
             logging.info(f"New version available, please update to {online_version}")
+            return f"New version available: {online_version}"
         else:
             logging.info(f"program is up to data")
+            return "The bot is already up to date."
 
     except requests.RequestException:
         logging.info("update check failed, please try again later")

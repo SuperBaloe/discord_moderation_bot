@@ -5,20 +5,6 @@ import logging
 import random
 
 
-intents = discord.Intents.default()
-intents.members = True
-
-
-client = discord.Client(intents=intents)
-Bot_config = None
-
-
-@client.event
-async def on_ready():
-    logging.info("Connected")
-    await run_loop(Bot_config)
-
-
 def Pf_check(member):
     return member.avatar is not None or member.guild_avatar is not None
 
@@ -39,22 +25,6 @@ def Random_message(config):
         message = "Default kick Message"
     return message
 
-
-async def run_loop(config):
-    while True:
-        await main(config)
-        wait_time = config["Check_in_time"] * 60
-        logging.info(f"Waiting {config['Check_in_time']} minutes...")
-        await asyncio.sleep(wait_time)
-
-
-def start_bot(config):
-    global Bot_config
-    Bot_config = config
-    if Bot_config is None:
-        logging.debug("Config not loaded correctly to global config in mod.py")
-    client.run(config["Token"])
-    
 
 async def load_members(config, client):
     members = []
@@ -99,7 +69,7 @@ def check_age(age_days, config):
     return age_days <= config["Age_requirement"]
         
 
-async def main(config):
+async def main(config, client):
     logging.info(f"Check started: {datetime.now()}")
     members = await load_members(config, client)
     channel = client.get_channel(config['Channel_id'])
