@@ -9,7 +9,7 @@ default_config = {
     "Token": "YOUR_BOT_TOKEN",
     #Server and alarm channel for bot
     "Guild_id": 123456789,          # server id
-    "Bot_alarms:": 123456789,       # Where the bot will give info when he bans or kicks
+    "Bot_alarms": 123456789,       # Where the bot will give info when he bans or kicks
     #Interval between check and how old account should be
     "Check_in_time": 60,            # in minutes
     "Age_requirement": 15,          # how old the account has to be before being let in
@@ -49,6 +49,15 @@ def create_config_if_missing():
             )
 
 
+def update_config_value(config_data, key, new_value):
+    old_value = config_data[key]
+
+    config_data[key] = new_value
+    save_config(config_data)
+
+    return old_value
+
+
 def load_config():
     logging.info("Loading config")
     try:
@@ -63,8 +72,7 @@ def load_config():
         return config
 
     except (yaml.YAMLError, FileNotFoundError):
-        logging.info("Config broken or missing → recreating")
-        save_config(default_config)
+        logging.info("Config broken or missing")
         return default_config.copy()
 
 

@@ -1,10 +1,13 @@
 import asyncio
+import logging
 import discord
 from discord import app_commands
 from discord.ext import commands
 
 import src.update_check
 
+
+@app_commands.default_permissions(administrator=True)
 class StatusCommands(commands.Cog):
 
     def __init__(self, bot):

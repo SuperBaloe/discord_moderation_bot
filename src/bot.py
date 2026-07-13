@@ -36,6 +36,7 @@ class ModerationBot(commands.Bot):
     async def setup_hook(self):
         logging.info("Setting up Discord slash commands")
         await self.load_extension("src.commands.status_commands")
+        await self.load_extension("src.commands.config_commands")
         guild = discord.Object(
             id=int(self.config_data["Guild_id"])
         )

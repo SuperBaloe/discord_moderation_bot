@@ -10,3 +10,4 @@ src/__pycache__/config.cpython-314.pyc
 src/__pycache__/bot.cpython-314.pyc
 src/commands/__pycache__/__init__.cpython-314.pyc
 src/commands/__pycache__/status_commands.cpython-314.pyc
+src/commands/__pycache__/config_commands.cpython-314.pyc
