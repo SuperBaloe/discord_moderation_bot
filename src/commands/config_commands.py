@@ -228,5 +228,133 @@ class ConfigCommands(
             ephemeral=True
         )
 
+
+################### Ban_member ####################
+
+
+    @change.command(
+        name="ban_member",
+        description="Change if spam account will be banned or kicked"
+    )
+    async def bot_ban(
+        self,
+        interaction: discord.Interaction,
+        new_ban: bool
+    ):
+
+        logging.info(
+            "User %s (%s) used /%s",
+            interaction.user,
+            interaction.user.id,
+            interaction.command.qualified_name
+        )
+
+        old_ban = src.config.update_config_value(
+        self.bot.config_data,
+        "Ban_member",
+        new_ban
+        )
+        logging.info(f"Age_requirement was changed from {old_ban} to {new_ban}")
+        await interaction.response.send_message(
+            f"Bot age requirment changed from `{old_ban}` to `{new_ban}`.",
+            ephemeral=True
+        )
+
+
+################### Send_sentence ####################
+
+
+    @change.command(
+        name="send_sentence",
+        description="Change if spam account will be messaged before ban/kick"
+    )
+    async def bot_sentence(
+        self,
+        interaction: discord.Interaction,
+        new_sentence_choice: bool
+    ):
+
+        logging.info(
+            "User %s (%s) used /%s",
+            interaction.user,
+            interaction.user.id,
+            interaction.command.qualified_name
+        )
+
+        old_sentence_choice= src.config.update_config_value(
+        self.bot.config_data,
+        "Send_sentence?",
+        new_sentence_choice
+        )
+        logging.info(f"Age_requirement was changed from {old_sentence_choice} to {new_sentence_choice}")
+        await interaction.response.send_message(
+            f"Bot age requirment changed from `{old_sentence_choice}` to `{new_sentence_choice}`.",
+            ephemeral=True
+        )
+
+
+################### Message_time ####################
+
+
+    @change.command(
+        name="message_time",
+        description="Change time between message and the ban/kick"
+    )
+    async def bot_message_time(
+        self,
+        interaction: discord.Interaction,
+        new_message_time: int
+    ):
+
+        logging.info(
+            "User %s (%s) used /%s",
+            interaction.user,
+            interaction.user.id,
+            interaction.command.qualified_name
+        )
+
+        old_message_time= src.config.update_config_value(
+        self.bot.config_data,
+        "Message_time",
+        new_message_time
+        )
+        logging.info(f"Age_requirement was changed from {old_message_time} to {new_message_time}")
+        await interaction.response.send_message(
+            f"Bot age requirment changed from `{old_message_time}` to `{new_message_time}`.",
+            ephemeral=True
+        )
+
+
+################### Channel_id ####################
+
+
+    @change.command(
+        name="channel_id",
+        description="Change channel spammer will be messaged"
+    )
+    async def bot_Channel_id(
+        self,
+        interaction: discord.Interaction,
+        new_channel_id: int
+    ):
+
+        logging.info(
+            "User %s (%s) used /%s",
+            interaction.user,
+            interaction.user.id,
+            interaction.command.qualified_name
+        )
+
+        old_Channel_id= src.config.update_config_value(
+        self.bot.config_data,
+        "Channel_id",
+        new_channel_id
+        )
+        logging.info(f"Age_requirement was changed from {old_Channel_id} to {new_channel_id}")
+        await interaction.response.send_message(
+            f"Bot age requirment changed from `{old_Channel_id}` to `{new_channel_id}`.",
+            ephemeral=True
+        )
+
 async def setup(bot):
     await bot.add_cog(ConfigCommands(bot))
