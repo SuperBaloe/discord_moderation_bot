@@ -1,4 +1,4 @@
-﻿# Bearish Discord Moderation Bot
+﻿# Discord Moderation Bot
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![discord.py](https://img.shields.io/badge/discord.py-slash%20commands-5865F2)
@@ -372,48 +372,3 @@ The included Dockerfile launches:
 ```text
 python main_blind.py
 ```
-
----
-
-## Project Structure
-
-```text
-discord_moderation_bot/
-├── config/
-│   ├── EX_config.yaml
-│   ├── config.yaml
-│   └── logging.yaml
-├── src/
-│   ├── commands/
-│   │   ├── __init__.py
-│   │   ├── config_commands.py
-│   │   └── status_commands.py
-│   ├── bot.py
-│   ├── config.py
-│   ├── housey_logging.py
-│   ├── mod.py
-│   └── update_check.py
-├── .dockerignore
-├── .gitignore
-├── dockerfile
-├── main_blind.py
-├── main_interface.py
-├── requirements.txt
-├── version.py
-└── README.md
-```
-
-### Important files
-
-| File | Purpose |
-|---|---|
-| `main_blind.py` | Recommended direct launcher |
-| `main_interface.py` | Legacy or experimental interactive launcher |
-| `src/bot.py` | Discord bot class, command loading, and recurring loop |
-| `src/mod.py` | Member loading, age checks, whitelist, and moderation actions |
-| `src/config.py` | YAML creation, loading, updating, and saving |
-| `src/update_check.py` | GitHub release version checker |
-| `src/commands/status_commands.py` | Status, ping, and update slash commands |
-| `src/commands/config_commands.py` | Administrator configuration slash commands |
-| `config/logging.yaml` | Logging configuration |
-| `version.py` | Application name, version, build date, and repository details |
