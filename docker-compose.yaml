@@ -1,0 +1,12 @@
+services:
+  discord-bot:
+    build:
+      context: .
+      dockerfile: dockerfile
+
+    container_name: discord-moderation-bot-nightly
+
+    restart: unless-stopped
+
+    volumes:
+      - /opt/bearish-bot/config:/usr/src/app/config
