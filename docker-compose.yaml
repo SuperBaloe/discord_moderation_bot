@@ -9,4 +9,4 @@ services:
     restart: unless-stopped
 
     volumes:
-      - /opt/bearish-bot/config:/usr/src/app/config
+      - /opt/bearish-bot/config/config.yaml:/usr/src/app/config/config.yaml
