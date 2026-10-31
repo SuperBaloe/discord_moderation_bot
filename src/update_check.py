@@ -5,21 +5,31 @@ from version import APP_NAME, APP_VERSION, AUTHOR, GIT_REPO
 
 update_url = f"https://api.github.com/repos/{AUTHOR}/{GIT_REPO}/releases/latest"
 
+def parse_version(version):
+    return tuple(int(part) for part in version.strip().lstrip("v").split("."))
+
 def check_for_updates():
     try:
         message = requests.get(update_url, timeout=5)
 
         if message.status_code != 200:
             logging.info("Could not check for updates")
-            return
+            return "Could not check for updates."
 
         data = message.json()
         online_version = data["tag_name"].lstrip("v")
+        current = parse_version(APP_VERSION)
+        latest = parse_version(online_version)
 
-        if online_version != APP_VERSION:
+        if current < latest:
             logging.info(f"New version available, please update to {online_version}")
+            return f"New version available: {online_version}"
+        elif current > latest:
+            logging.info("Running newer version then online you sneaky bear")
+            return "Running newer version then online"
         else:
             logging.info(f"program is up to data")
+            return "The bot is already up to date."
 
     except requests.RequestException:
         logging.info("update check failed, please try again later")

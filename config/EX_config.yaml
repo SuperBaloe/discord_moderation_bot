@@ -1,15 +1,24 @@
-Bot_name: "Bearish_bot"
-Token: "YOUR_TOKEN_HERE"
-Check_in_time: 60
+Bot_name: bearish_bot
+Token: YOUR_BOT_TOKEN
 Guild_id: 123456789
-Webhook_url: "YOUR_WEBHOOK_HERE"
+Bot_alarms: 123456789
+Check_in_time: 60
 Age_requirement: 15
-Ban_member: False
+Ban_member: false
 Dry_run: false
-Whitelist_active: False
-Whitelist:
-- 329173372149825539
 Send_sentence?: true
 Channel_id: 123456789
 Message_time: 10
-Sentence_Kick/Ban: Be gone you idiot
+Sentence_1: Your account is fresher than my morning coffee.
+Sentence_2: You are too new for this kingdom.
+Sentence_3: The age scanner beeped. Loudly.
+Sentence_4: Something something Kangaroo.
+Sentence_5: You must be this old to enter the ride.
+Sentence_6: The bouncer checked your ID and laughed.
+Sentence_7: Account still has the new-user smell.
+Sentence_8: Access denied by the ancient Discord spirits.
+Sentence_9: You have been bonked by the anti-spam hammer.
+Sentence_10: Come back when your account has grown a beard.
+Whitelist_active: true
+Whitelist:
+- 329173372149825539

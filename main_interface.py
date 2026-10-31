@@ -22,7 +22,7 @@ default_config = {
     "Bot_name": "bearish_bot",
     "Token": "YOUR_BOT_TOKEN",
     "Guild_id": 123456789,          # server id
-    "Webhook_url": "YOUR_WEBHOOK_URL",
+    "Bot_alarms:": 123456789,       # Where the bot will give info when he bans or kicks
     "Check_in_time": 60,            # in minutes
     "Age_requirement": 15,          # how old the account has to be before being let in
     "Ban_member": False,
@@ -30,7 +30,16 @@ default_config = {
     "Send_sentence?": True,          # if sentence will be send
     "Channel_id": 123456789,
     "Message_time": 10,              # In seconds | how long till ban when message has been send
-    "Sentence_Kick/Ban": "Be gone you idiot",   # will be send the defined time before kick/Ban
+    "Sentence_1": "Your account is fresher than my morning coffee.", # will be send the defined time before kick/Ban
+    "Sentence_2": "You are too new for this kingdom.",
+    "Sentence_3": "The age scanner beeped. Loudly.",
+    "Sentence_4": "Something something Kangaroo.",
+    "Sentence_5": "You must be this old to enter the ride.",
+    "Sentence_6": "The bouncer checked your ID and laughed.",
+    "Sentence_7": "Account still has the new-user smell.",
+    "Sentence_8": "Access denied by the ancient Discord spirits.",
+    "Sentence_9": "You have been bonked by the anti-spam hammer.",
+    "Sentence_10": "Come back when your account has grown a beard.",
     "Whitelist_active": True,
     "Whitelist":[
         329173372149825539
